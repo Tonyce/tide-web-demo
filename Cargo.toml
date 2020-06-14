@@ -1,0 +1,18 @@
+[package]
+name = "tide-web"
+version = "0.1.0"
+authors = ["ttang <d_ttang@163.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tide = "0.11.0"
+# mongodb = { version =  "1.0.0", features = ["async-std-runtime"] }
+redis = { version = "0.16.0", features = ["async-std-comp"]}
+async-std = { version = "1.6.1", features = ["attributes"]}
+log4rs = {version = "0.12.0", features = ["json_encoder"] }
+log = "0.4.8"
+uuid = { version = "0.8.1", features = ["serde", "v4"] }
+serde = "1.0.111"
+http-types = "2.2.0"
