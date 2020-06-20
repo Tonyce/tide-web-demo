@@ -4,7 +4,7 @@ use uuid::Uuid;
 
 use crate::middlewares;
 
-pub fn app_routers(app: &mut tide::Server<()>) {
+pub fn app_routers<State: Send + Sync + 'static>(app: &mut tide::Server<State>) {
     app.at("/api")
         .middleware(middlewares::HttpLogMiddleware::new())
         .nest({

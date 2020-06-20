@@ -1,7 +1,9 @@
 use std::future::Future;
 use std::pin::Pin;
+// use std::str::FromStr;
 
 use log;
+// use tide::http::Mime;
 use tide::{Middleware, Next, Request};
 use uuid::Uuid;
 
@@ -16,9 +18,23 @@ impl HttpLogMiddleware {
     /// Log a request and a response.
     async fn log<'a, State: Send + Sync + 'static>(
         &'a self,
-        ctx: Request<State>,
+        mut ctx: Request<State>,
         next: Next<'a, State>,
     ) -> tide::Result {
+        // TODO: ?
+        let body_str = if let Some(mime) = ctx.content_type() {
+            let mut body_str = "".to_owned();
+            if mime.essence() == "application/json" {
+                body_str = ctx.body_string().await.unwrap_or("".to_string());
+                ctx.set_body(body_str.clone());
+            }
+            body_str
+        } else {
+            "".to_owned()
+        };
+
+        let content_type = ctx.content_type();
+        let content_len = ctx.len().unwrap_or(0);
         let path = ctx.url().path().to_owned();
         let query = ctx.url().query().unwrap_or("");
         let method = ctx.method().to_string();
@@ -26,14 +42,25 @@ impl HttpLogMiddleware {
         let uuid: &Uuid = ctx.ext().unwrap();
         let uuid = uuid.to_string();
 
-        log::info!(target: "app::requests", "<-- {} {} {} {}", uuid, method, path, query);
+        log::info!(
+            target: "app::requests",
+            "<-- {} {} {} {} {:?} {} {}",
+            uuid, path, query, method, content_type, content_len, body_str
+        );
 
-        let _start = std::time::Instant::now();
+        let start = std::time::Instant::now();
         let result: tide::Result = next.run(ctx).await;
+
+        let times_spend = start.elapsed().as_micros();
         match result {
-            Ok(res) => {
+            Ok(mut res) => {
                 let status = res.status();
-                log::info!(target: "app::requests", "--> {} {}", uuid, status);
+                // TODO: ?
+                let body = res.take_body();
+                let body_str = body.into_string().await.unwrap_or("".to_owned());
+                res.set_body(body_str.clone());
+
+                log::info!(target: "app::requests", "--> {} {} {}ms {:?}", uuid, status, times_spend, body_str);
                 Ok(res)
             }
 

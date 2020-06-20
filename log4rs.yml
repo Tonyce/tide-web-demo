@@ -14,7 +14,7 @@ appenders:
     path: "log/requests.log"
     encoder:
       # json:
-      pattern: "{d} - {m}{n}"
+      pattern: "{d} {m}{n}"
 
 # Set the default logging level to "warn" and attach the "stdout" appender to the root
 root:

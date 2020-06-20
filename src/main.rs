@@ -1,7 +1,7 @@
+pub mod app;
 mod middlewares;
 mod routers;
 mod services;
-
 use log4rs;
 
 // use middlewares::app_middleware;
@@ -10,12 +10,7 @@ use log4rs;
 async fn main() -> Result<(), std::io::Error> {
     log4rs::init_file("log4rs.yml", Default::default()).unwrap();
     // tide::log::start();
-    let mut app = tide::Server::new();
-    app.at("/health").get(|_| async { Ok("") });
-
-    middlewares::app_middleware(&mut app);
-    routers::app_routers(&mut app);
-
+    let app = app::init();
     app.listen("127.0.0.1:8080").await?;
     Ok(())
 }
