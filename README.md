@@ -4,16 +4,15 @@
 
 [] CURD，并使用 uuid 串连相应 log（I/O，系统，DB）
 
-- [x] 分层 controller, service, model
+- [x] 分层 controller, service, model。 关于 web 服务结构 [掘金博文](https://juejin.im/post/5b44e62e6fb9a04fc030f216)
 - [x] I/O log (请求参数及响应 [JSON])
 - [] DB log (命令和返回)
 - [] 系统 log (系统启动时间，退出错误)
-- [] 测试
-  - [] 单元
-    - [] model
-    - [] service
-    - [] controller
-  - [x] 集成（http get post[json] 请求）
+- [x] 测试
+  - [x] 单元
+    - [x] model
+    - [x] service [使用 **mocktopus** mock model]
+  - [x] 集成（http get post[json] 请求，测试 controller）
 - [] 配置（config）
   - [] watch
 

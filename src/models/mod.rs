@@ -1,8 +1,10 @@
-use mongodb::bson::doc;
-use mongodb::{options::ClientOptions, Client};
+use mongodb::{bson::doc, options::ClientOptions, Client};
 
 mod article;
 pub(crate) use article::Article;
+
+mod hello;
+pub(crate) use hello::Hello;
 
 lazy_static! {
     pub static ref MONGO_DB: mongodb::Database = init_db();
@@ -10,9 +12,10 @@ lazy_static! {
 
 fn init_db() -> mongodb::Database {
     async_std::task::block_on(async {
-        let mut client_options = ClientOptions::parse("mongodb://localhost:27017")
-            .await
-            .unwrap();
+        let mut client_options =
+            ClientOptions::parse("mongodb://localhost:27017")
+                .await
+                .unwrap();
         client_options.app_name = Some("My App".to_string());
 
         // Get a handle to the deployment.

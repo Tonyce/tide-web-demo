@@ -1,7 +1,7 @@
 // use core::future::Future;
-// fn hello(_req: tide::Request<()>) -> impl Future<Output = tide::Result<String>> {
-//     async_std::future::ready(Ok(String::from("hello")))
-// }
+// fn hello(_req: tide::Request<()>) -> impl Future<Output =
+// tide::Result<String>> {     async_std::future::ready(Ok(String::from("hello"
+// ))) }
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -9,7 +9,7 @@ use crate::services;
 
 #[derive(Deserialize, Serialize)]
 pub struct HelloQuery {
-    word: String,
+    pub word: String,
 }
 
 #[allow(dead_code)]

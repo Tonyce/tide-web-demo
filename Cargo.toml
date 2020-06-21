@@ -27,3 +27,6 @@ version =  "1.0.0"
 default-features = false
 features = ["async-std-runtime"]
 path = "/Users/ttang/TheCode/rust/mongo-rust-driver"
+
+[dev-dependencies]
+mocktopus = "0.7.5"
