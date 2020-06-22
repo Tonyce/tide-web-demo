@@ -6,14 +6,14 @@ pub(crate) use article::Article;
 mod hello;
 pub(crate) use hello::Hello;
 
-use crate::SETTINGS;
+use crate::app::SETTINGS;
 
 lazy_static! {
     pub static ref MONGO_DB: mongodb::Database = init_db();
 }
 
 fn init_db() -> mongodb::Database {
-    println!("init_db");
+    // println!("init_db");
 
     async_std::task::block_on(async {
         let mongodb_url = SETTINGS

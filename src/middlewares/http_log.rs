@@ -56,9 +56,10 @@ impl HttpLogMiddleware {
         );
 
         let start = std::time::Instant::now();
+
         let result: tide::Result = next.run(ctx).await;
 
-        let times_spend = start.elapsed().as_micros();
+        let times_spend = start.elapsed().as_millis();
         match result {
             Ok(mut res) => {
                 let status = res.status();
