@@ -7,6 +7,8 @@ use log;
 use tide::{Middleware, Next, Request};
 use uuid::Uuid;
 
+use crate::constants::LOG_TARGET_APP_REQUESTS;
+
 #[derive(Debug)]
 pub struct HttpLogMiddleware;
 
@@ -43,9 +45,15 @@ impl HttpLogMiddleware {
         let uuid = uuid.to_string();
 
         log::info!(
-            target: "app::requests",
+            target: LOG_TARGET_APP_REQUESTS,
             "<-- {} {} {} {} {:?} {} {}",
-            uuid, path, query, method, content_type, content_len, body_str
+            uuid,
+            path,
+            query,
+            method,
+            content_type,
+            content_len,
+            body_str
         );
 
         let start = std::time::Instant::now();
@@ -55,17 +63,25 @@ impl HttpLogMiddleware {
         match result {
             Ok(mut res) => {
                 let status = res.status();
+
                 // TODO: ?
                 let body = res.take_body();
-                let body_str = body.into_string().await.unwrap_or("".to_owned());
+                let body_str =
+                    body.into_string().await.unwrap_or("".to_owned());
                 res.set_body(body_str.clone());
 
                 log::info!(target: "app::requests", "--> {} {} {}ms {:?}", uuid, status, times_spend, body_str);
+
                 Ok(res)
             }
 
             Err(err) => {
-                log::info!(target: "app::requests", "--> {} {}", uuid, err.status());
+                log::info!(
+                    target: LOG_TARGET_APP_REQUESTS,
+                    "--> {} {}",
+                    uuid,
+                    err.status()
+                );
                 Err(err)
             }
         }

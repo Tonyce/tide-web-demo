@@ -10,8 +10,8 @@ struct Cat {
 
 pub fn hello_api(api: &mut tide::Server<()>) {
     api.at("/hello/:n").get(controllers::hello::get_hello);
-    api.at("/goodbye").get(|_| async { Ok("") });
-    // api.at("/goodbye").get(controllers::hello::get_goodbye);
+    // api.at("/goodbye").get(|_| async { Ok("") });
+    api.at("/goodbye").get(controllers::hello::get_goodbye);
     api.at("/goodbye").post(|mut req: Request<_>| async move {
         let body: String = req.body_string().await.unwrap();
         Ok(body)

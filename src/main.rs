@@ -1,11 +1,12 @@
 #![allow(unused_must_use)]
 #![allow(dead_code)]
-// #![cfg_attr(test, feature(proc_macro_hygiene))]
+#![cfg_attr(test, feature(proc_macro_hygiene))]
 
 #[macro_use]
 extern crate lazy_static;
 
 pub mod app;
+mod constants;
 mod controllers;
 mod middlewares;
 mod models;
