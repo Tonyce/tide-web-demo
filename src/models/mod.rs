@@ -6,16 +6,25 @@ pub(crate) use article::Article;
 mod hello;
 pub(crate) use hello::Hello;
 
+use crate::SETTINGS;
+
 lazy_static! {
     pub static ref MONGO_DB: mongodb::Database = init_db();
 }
 
 fn init_db() -> mongodb::Database {
+    println!("init_db");
+
     async_std::task::block_on(async {
+        let mongodb_url = SETTINGS
+            .read()
+            .await
+            .get::<&str>("mongodb")
+            .unwrap_or("mongodb://localhost:27017");
+
         let mut client_options =
-            ClientOptions::parse("mongodb://localhost:27017")
-                .await
-                .unwrap();
+            ClientOptions::parse(mongodb_url).await.unwrap();
+
         client_options.app_name = Some("My App".to_string());
 
         // Get a handle to the deployment.

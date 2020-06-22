@@ -1,5 +1,4 @@
-use std::future::Future;
-use std::pin::Pin;
+use std::{future::Future, pin::Pin};
 // use std::str::FromStr;
 
 use log;
@@ -38,7 +37,7 @@ impl HttpLogMiddleware {
         let content_type = ctx.content_type();
         let content_len = ctx.len().unwrap_or(0);
         let path = ctx.url().path().to_owned();
-        let query = ctx.url().query().unwrap_or("");
+        let query = ctx.url().query().unwrap_or("-");
         let method = ctx.method().to_string();
 
         let uuid: &Uuid = ctx.ext().unwrap();
@@ -48,9 +47,9 @@ impl HttpLogMiddleware {
             target: LOG_TARGET_APP_REQUESTS,
             "<-- {} {} {} {} {:?} {} {}",
             uuid,
+            method,
             path,
             query,
-            method,
             content_type,
             content_len,
             body_str

@@ -5,7 +5,7 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::services;
+use crate::{services, SETTINGS};
 
 #[derive(Deserialize, Serialize)]
 pub struct HelloQuery {
@@ -15,6 +15,14 @@ pub struct HelloQuery {
 #[allow(dead_code)]
 pub async fn get_goodbye(_req: tide::Request<()>) -> tide::Result<String> {
     // TODO: 参数校验
+    // println!(
+    //     "get_goodbye key: {}",
+    //     SETTINGS
+    //         .read()
+    //         .await
+    //         .get::<String>("key")
+    //         .unwrap_or("".to_owned())
+    // );
     Ok(String::from("goodbye"))
 }
 

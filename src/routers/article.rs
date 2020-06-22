@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use tide::{Body, Request, Response};
+use tide::{Body, Response};
 
 use crate::controllers;
 

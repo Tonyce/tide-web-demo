@@ -1,0 +1,4 @@
+key = "189rjfadoisfj8923fjio"
+
+requests_log = "log/request.log"
+mongodb = "mongodb://localhost:27017"

@@ -11,7 +11,7 @@ name = "tide_web"
 path = "src/main.rs"
 
 [dependencies]
-tide = "0.11.0"
+# tide = "0.11.0"
 # mongodb = {  }
 redis = { version = "0.16.0", features = ["async-std-comp"]}
 async-std = { version = "1.6.1", features = ["attributes"]}
@@ -21,12 +21,17 @@ uuid = { version = "0.8.1", features = ["serde", "v4"] }
 serde = "1.0.111"
 http-types = "2.2.0"
 lazy_static = "1.4.0"
+config = "0.10.1"
 
 [dependencies.mongodb]
 version =  "1.0.0"
 default-features = false
 features = ["async-std-runtime"]
 path = "/Users/ttang/TheCode/rust/mongo-rust-driver"
+
+[dependencies.tide]
+version = "0.11.0"
+path = "/Users/ttang/TheCode/rust/tide"
 
 [dev-dependencies]
 mocktopus = "0.7.5"

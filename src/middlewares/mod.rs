@@ -4,8 +4,10 @@ pub use http_log::HttpLogMiddleware;
 
 use uuid::Uuid;
 
-pub fn app_middleware<State: Send + Sync + 'static>(app: &mut tide::Server<State>) {
-    app.middleware(tide::Before(
+pub fn app_middleware<State: Send + Sync + 'static>(
+    app: &mut tide::Server<State>,
+) {
+    app.middleware(tide::utils::Before(
         |mut request: tide::Request<State>| async move {
             // println!("before");
             request.set_ext(std::time::Instant::now());
@@ -14,7 +16,7 @@ pub fn app_middleware<State: Send + Sync + 'static>(app: &mut tide::Server<State
         },
     ));
 
-    app.middleware(tide::After(|res: tide::Result| async move {
+    app.middleware(tide::utils::After(|res: tide::Result| async move {
         // println!("after");
         // let res = res.unwrap_or_else(|e| {
         //     println!("--- {:#?}", e);
@@ -23,8 +25,8 @@ pub fn app_middleware<State: Send + Sync + 'static>(app: &mut tide::Server<State
         // let status = res.status();
         // match status {
         //     tide::StatusCode::NotFound => Err(res),
-        //     tide::StatusCode::InternalServerError => Ok("Something went wrong".into()),
-        //     _ => Ok(res),
+        //     tide::StatusCode::InternalServerError => Ok("Something went
+        // wrong".into()),     _ => Ok(res),
         // }
         match res {
             Err(err) => {
@@ -38,10 +40,12 @@ pub fn app_middleware<State: Send + Sync + 'static>(app: &mut tide::Server<State
                         tide::StatusCode::NotFound,
                         "NotFound".to_owned(),
                     )),
-                    tide::StatusCode::InternalServerError => Err(tide::Error::from_str(
-                        tide::StatusCode::InternalServerError,
-                        "InternalServerError".to_owned(),
-                    )),
+                    tide::StatusCode::InternalServerError => {
+                        Err(tide::Error::from_str(
+                            tide::StatusCode::InternalServerError,
+                            "InternalServerError".to_owned(),
+                        ))
+                    }
                     _ => Ok(r),
                 }
             }
