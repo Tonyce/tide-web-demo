@@ -2,6 +2,7 @@
 
 use uuid::Uuid;
 
+use crate::services::grpc_services;
 pub(crate) use crate::{controllers::hello::HelloQuery, models::Hello};
 
 pub async fn say_hello(
@@ -10,7 +11,9 @@ pub async fn say_hello(
     _query: HelloQuery,
 ) -> Result<String, tide::Error> {
     let hello_word = Hello::say_hello();
-    Ok(hello_word)
+    let tokio_time = grpc_services::tokio_runtime_eject();
+    // println!("tokio_time: {}", tokio_time);
+    Ok(hello_word + &tokio_time)
 }
 
 #[cfg(test)]

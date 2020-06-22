@@ -253,6 +253,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "blocking"
+version = "0.4.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9d17efb70ce4421e351d61aafd90c16a20fb5bfe339fcdc32a86816280e62ce0"
+dependencies = [
+ "futures-channel",
+ "futures-util",
+ "once_cell",
+ "parking",
+ "waker-fn",
+]
+
+[[package]]
 name = "bson"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -306,6 +319,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "130aac562c0dd69c56b3b1cc8ffd2e17be31d0b6c25b61c96b76231aa23e39e1"
 
 [[package]]
+name = "cache-padded"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24508e28c677875c380c20f4d28124fab6f8ed4ef929a1397d7b1a31e92f1005"
+
+[[package]]
 name = "cc"
 version = "1.0.54"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -351,6 +370,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "concurrent-queue"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f83c06aff61f2d899eb87c379df3cbf7876f14471dcab474e0b6dc90ab96c080"
+dependencies = [
+ "cache-padded",
+]
+
+[[package]]
 name = "config"
 version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -389,32 +417,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ba125de2af0df55319f41944744ad91c71113bf74a4646efff39afe1f6842db1"
 dependencies = [
  "cfg-if",
-]
-
-[[package]]
-name = "crossbeam-deque"
-version = "0.7.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f02af974daeee82218205558e51ec8768b48cf524bd01d550abe5573a608285"
-dependencies = [
- "crossbeam-epoch",
- "crossbeam-utils",
- "maybe-uninit",
-]
-
-[[package]]
-name = "crossbeam-epoch"
-version = "0.8.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "058ed274caafc1f60c4997b5fc07bf7dc7cca454af7c6e81edffe5f33f70dace"
-dependencies = [
- "autocfg",
- "cfg-if",
- "crossbeam-utils",
- "lazy_static",
- "maybe-uninit",
- "memoffset",
- "scopeguard",
 ]
 
 [[package]]
@@ -528,6 +530,12 @@ name = "fake-simd"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e88a8acf291dafb59c2d96e8f59828f3838bb1a70398823ade51a84de6a6deed"
+
+[[package]]
+name = "fastrand"
+version = "1.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a64b0126b293b050395b37b10489951590ed024c03d7df4f249d219c8ded7cbf"
 
 [[package]]
 name = "femme"
@@ -1063,15 +1071,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3728d817d99e5ac407411fa471ff9800a778d88a24685968b36824eaf4bee400"
 
 [[package]]
-name = "memoffset"
-version = "0.5.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b4fc2c02a7e374099d4ee95a193111f72d2110197fe200272371758f6c3643d8"
-dependencies = [
- "autocfg",
-]
-
-[[package]]
 name = "miniz_oxide"
 version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1283,6 +1282,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "parking"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9a7fad362df89617628a7508b3e9d588ade1b0ac31aa25de168193ad999c2dd4"
+
+[[package]]
 name = "parking_lot"
 version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1353,18 +1358,6 @@ name = "pin-utils"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b870d8c151b6f2fb93e84a13146138f05d02ed11c7e7c54f8826aaaf7c9f184"
-
-[[package]]
-name = "piper"
-version = "0.1.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "01608bfa680dafb103f9207fa944facf572e4e3e708d10de19a0d0c3d36e5f18"
-dependencies = [
- "crossbeam-utils",
- "futures-io",
- "futures-sink",
- "futures-util",
-]
 
 [[package]]
 name = "polyval"
@@ -1631,10 +1624,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
 
 [[package]]
-name = "scoped-tls-hkt"
-version = "0.1.2"
+name = "scoped-tls"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c2e9d7eaddb227e8fbaaa71136ae0e1e913ca159b86c7da82f3e8f0044ad3a63"
+checksum = "ea6a9290e3c9cf0f18145ef7ffa62d68ee0bf5fcd651017e586dc7fd5da448c2"
 
 [[package]]
 name = "scopeguard"
@@ -1844,23 +1837,24 @@ checksum = "c7cb5678e1615754284ec264d9bb5b4c27d2018577fd90ac0ceb578591ed5ee4"
 
 [[package]]
 name = "smol"
-version = "0.1.11"
+version = "0.1.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "845f5e7db6b614a8f4f59e565c3035f0fab2f71c9537ff0119eddb60d866cae3"
+checksum = "620cbb3c6e34da57d3a248cda0cd01cd5848164dc062e764e65d06fe3ea7aed5"
 dependencies = [
  "async-task",
- "crossbeam-deque",
- "crossbeam-queue",
- "crossbeam-utils",
+ "blocking",
+ "concurrent-queue",
+ "fastrand",
  "futures-io",
  "futures-util",
  "libc",
  "once_cell",
- "piper",
- "scoped-tls-hkt",
+ "scoped-tls",
  "slab",
  "socket2",
- "wepoll-binding",
+ "tokio",
+ "wepoll-sys-stjepang",
+ "winapi 0.3.8",
 ]
 
 [[package]]
@@ -2099,7 +2093,9 @@ dependencies = [
  "mongodb",
  "redis",
  "serde 1.0.111",
+ "smol",
  "tide",
+ "tokio",
  "uuid",
 ]
 
@@ -2166,6 +2162,7 @@ dependencies = [
  "memchr",
  "mio",
  "mio-uds",
+ "num_cpus",
  "pin-project-lite",
  "slab",
 ]
@@ -2366,6 +2363,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5a972e5669d67ba988ce3dc826706fb0a8b01471c088cb0b6110b805cc36aed"
 
 [[package]]
+name = "waker-fn"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9571542c2ce85ce642e6b58b3364da2fb53526360dfb7c211add4f5c23105ff7"
+
+[[package]]
 name = "wasi"
 version = "0.9.0+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2469,20 +2472,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "wepoll-binding"
-version = "2.0.2"
+name = "wepoll-sys-stjepang"
+version = "1.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "374fff4ff9701ff8b6ad0d14bacd3156c44063632d8c136186ff5967d48999a7"
-dependencies = [
- "bitflags",
- "wepoll-sys",
-]
-
-[[package]]
-name = "wepoll-sys"
-version = "2.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9082a777aed991f6769e2b654aa0cb29f1c3d615daf009829b07b66c7aff6a24"
+checksum = "6fd319e971980166b53e17b1026812ad66c6b54063be879eb182342b55284694"
 dependencies = [
  "cc",
 ]

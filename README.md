@@ -15,6 +15,7 @@
   - [x] 集成（http get post[json] 请求，测试 controller）
 - [x] 配置（config）
   - [] watch
+- [x] smol 使用 tokio
 
 [] 学习 Tide
 
