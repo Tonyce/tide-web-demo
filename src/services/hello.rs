@@ -35,6 +35,6 @@ mod test {
             word: "hello".to_owned(),
         };
         let result: String = say_hello(&uuid, n, query).await.unwrap();
-        assert_eq!(result, "mocking");
+        assert_eq!(result, "mockingtokio_runtime_eject");
     }
 }

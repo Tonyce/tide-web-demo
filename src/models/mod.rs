@@ -1,18 +1,20 @@
 use mongodb::{bson::doc, options::ClientOptions, Client};
+use sqlx::PgPool;
 
 mod article;
-pub(crate) use article::Article;
-
 mod hello;
+mod weather;
+pub(crate) use article::Article;
 pub(crate) use hello::Hello;
 
 use crate::app::SETTINGS;
 
 lazy_static! {
-    pub static ref MONGO_DB: mongodb::Database = init_db();
+    pub static ref MONGO_DB: mongodb::Database = init_mongo();
+    pub static ref PG_POOL: PgPool = init_postgres();
 }
 
-fn init_db() -> mongodb::Database {
+fn init_mongo() -> mongodb::Database {
     // println!("init_db");
 
     async_std::task::block_on(async {
@@ -33,6 +35,17 @@ fn init_db() -> mongodb::Database {
         let db = client.database("mydb");
         // let collection = db.collection("books");
         db
+    })
+}
+
+fn init_postgres() -> sqlx::postgres::PgPool {
+    async_std::task::block_on(async {
+        PgPool::builder()
+            // maximum number of connections in the pool
+            .max_size(5)
+            .build("postgres://ttang@localhost/learn_db")
+            .await
+            .unwrap()
     })
 }
 

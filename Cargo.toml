@@ -24,6 +24,8 @@ lazy_static = "1.4.0"
 config = "0.10.1"
 smol = { version = "0.1.18", features = ["tokio02"] }
 tokio = "0.2.21"
+sqlx = { version = "0.3.5", features = ["postgres", "chrono"] }
+chrono = "0.4.11"
 
 [dependencies.mongodb]
 version =  "1.0.0"
