@@ -5,7 +5,7 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{app::SETTINGS, services};
+use crate::services;
 
 #[derive(Deserialize, Serialize)]
 pub struct HelloQuery {
