@@ -19,13 +19,14 @@
   - [ ] JWT
 
 - [ ] 学习 Tide
-  - [ ] 类型系统
-    - [ ] State
-    - [ ] Request
-    - [ ] Response
-  - [ ] 结构
-    - [ ] Middleware
-    - [ ] Router
+  - [x] Server
+  - [x] State
+  - [x] Request
+  - [x] Response
+  - [ ] Next
+  - [ ] Middleware
+  - [ ] Router
+  - [ ] Endpoint
 
 ## 笔记
 
