@@ -11,7 +11,7 @@ pub async fn say_hello(
     _query: HelloQuery,
 ) -> Result<String, tide::Error> {
     let hello_word = Hello::say_hello();
-    let tokio_time = grpc_services::tokio_runtime_eject();
+    let tokio_time = grpc_services::tokio_runtime_eject().await;
     // println!("tokio_time: {}", tokio_time);
     Ok(hello_word + &tokio_time)
 }
