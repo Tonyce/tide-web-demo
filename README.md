@@ -18,15 +18,15 @@
   - [x] smol 使用 tokio
   - [ ] JWT
 
-- [ ] 学习 Tide
+- [x] 学习 Tide
   - [x] Server
   - [x] State
   - [x] Request
   - [x] Response
-  - [ ] Next
-  - [ ] Middleware
-  - [ ] Router
-  - [ ] Endpoint
+  - [x] Next
+  - [x] Middleware
+  - [x] Endpoint
+  - [x] Router
 
 ## 笔记
 
